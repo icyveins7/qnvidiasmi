@@ -61,22 +61,33 @@ class QNvidiaSmiGPUState(QNvidiaSmiXml):
     # ==================================================================
     # ==================== FRAME BUFFER MEMORY i.e. VRAM ===============
     # ==================================================================
+    def parse_mem(self, findstr: str) -> int:
+        unitmap = {
+            "KiB": 1024,
+            "MiB": 1024**2,
+            "GiB": 1024**3,
+            "TiB": 1024**4
+        }
+        m = self.parse(findstr, str)
+        size = int(m.split(" ")[0])
+        unit = m.split(" ")[1]
+        return size * unitmap[unit]
+
     @property
     def fb_mem_total(self) -> int:
-        return self.parse("./fb_memory_usage/total", int)
-
+        return self.parse_mem("./fb_memory_usage/total")
 
     @property
     def fb_mem_reserved(self) -> int:
-        return self.parse("./fb_memory_usage/reserved", int)
+        return self.parse_mem("./fb_memory_usage/reserved")
 
     @property
     def fb_mem_used(self) -> int:
-        return self.parse("./fb_memory_usage/used", int)
+        return self.parse_mem("./fb_memory_usage/used")
 
     @property
     def fb_mem_free(self) -> int:
-        return self.parse("./fb_memory_usage/free", int)
+        return self.parse_mem("./fb_memory_usage/free")
 
     @property
     def vram_total(self) -> int:
