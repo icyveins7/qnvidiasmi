@@ -1,0 +1,19 @@
+[project]
+name = "qnvidiasmi"
+version = "0.1.0"
+description = "For ergonomic queries of nvidia-smi."
+authors = [
+    {name = "icyveins7",email = "icyveins@hotmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "qnvidiasmi", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
